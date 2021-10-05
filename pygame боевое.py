@@ -21,7 +21,6 @@ def ptica(a, b):
     pygame.draw.polygon(screen, (250, 200, 100),
                         [(a + 245, b + 20), (a + 285, b + 28), (a + 295, b + 20), (a + 285, b + 12), (a + 235, b + 18),
                          (a + 235, b + 20)])
-
     pygame.draw.aaline(screen, (0, 0, 0), (a + 235, b + 19), (a + 295, b + 20), 1)
 
     pygame.draw.polygon(screen, (255, 255, 255),
