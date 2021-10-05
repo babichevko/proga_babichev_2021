@@ -37,16 +37,15 @@ def ptica(a, b):
     pygame.draw.polygon(screen, (0, 0, 0),
                         [(a + 125, b + 10), (a + 85, b - 80), (a - 85, b - 150), (a - 35, b - 70), (a + 105, b + 10),
                          (a + 125, b + 10)], 1)
-
-    for s, q, c, d in fot:
-        pygame.draw.ellipse(screen, (255, 255, 255), (s, q, c, d))
-    pygame.draw.circle(screen, (0, 0, 0), (a + 225, b + 10), 5)
     pygame.draw.polygon(screen, (255, 255, 255),
                         [(a + 125, b + 10), (a + 85, b - 80), (a - 85, b - 150), (a - 35, b - 70), (a + 105, b + 10),
                          (a + 125, b + 10)])
     pygame.draw.polygon(screen, (0, 0, 0),
                         [(a + 125, b + 10), (a + 85, b - 80), (a - 85, b - 150), (a - 35, b - 70), (a + 105, b + 10),
                          (a + 125, b + 10)], 1)
+    for s, q, c, d in fot:
+        pygame.draw.ellipse(screen, (255, 255, 255), (s, q, c, d))
+    pygame.draw.circle(screen, (0, 0, 0), (a + 225, b + 10), 5)
 
     for a, b, c, d, e, f in [
         ((a + 75, b + 10), (a + 25, b - 80), (a - 145, b - 150), (a - 95, b - 70), (a + 55, b + 10), (a + 75, b + 10))]:
@@ -87,7 +86,7 @@ ptichki = [(500, 270, 50, 20), (200, 420, 70, 30), (100, 200, 50, 30)]
 
 ptica(200, 700)
 ryba(300, 700)
-for a, b, u, d in c:
+for a, b, u, d in ptichki:
     ptichka(a, b, u, d)
 
 pygame.display.update()

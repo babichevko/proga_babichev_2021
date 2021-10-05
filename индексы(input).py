@@ -1,6 +1,7 @@
 import turtle as t
+import urllib
 t.speed=1
-y=open(r'''C:\Users\konst\python\2l\input.txt''')
+y=urllib.urlopen('''https://github.com/babichevko/proga_babichev_2021/input.txt''')
 d0=[]
 d4=[]
 d1=[]
