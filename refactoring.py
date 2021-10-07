@@ -23,37 +23,16 @@ screen = pygame.display.set_mode((800, 1200))
 
 def tree(x, y, size_x, size_y):
     rect(screen, white, ((100 - 100) * size_x + x, (630 - 870) * size_y + y, 50 * size_x, 150 * size_y))
-    ellipse(screen, leaf_green, ((20 - 100) * size_x + x, (510 - 870) * size_y + y, 225 * size_x, 175 * size_y))
-    ellipse(screen, leaf_green, ((15 - 100) * size_x + x, (170 - 870) * size_y + y, 220 * size_x, 240 * size_y))
-    ellipse(screen, grass_green, ((20 - 100) * size_x + x, (510 - 870) * size_y + y, 225 * size_x, 175 * size_y), 3)
-    ellipse(screen, grass_green, ((15 - 100) * size_x + x, (170 - 870) * size_y + y, 220 * size_x, 240 * size_y), 3)
-    ellipse(screen, leaf_green, ((-70 - 100) * size_x + x, (340 - 870) * size_y + y, 400 * size_x, 200 * size_y))
-    ellipse(screen, grass_green, ((-70 - 100) * size_x + x, (340 - 870) * size_y + y, 400 * size_x, 200 * size_y), 3)
-    ellipse(screen, fruit_pink, ((10 - 100) * size_x + x, (440 - 870) * size_y + y, 30 * size_x, 30 * size_y))
-    ellipse(screen, fruit_pink, ((170 - 100) * size_x + x, (240 - 870) * size_y + y, 30 * size_x, 30 * size_y))
-    ellipse(screen, fruit_pink, ((275 - 100) * size_x + x, (455 - 870) * size_y + y, 30 * size_x, 30 * size_y))
-    ellipse(screen, fruit_pink, ((210 - 100) * size_x + x, (640 - 870) * size_y + y, 30 * size_x, 30 * size_y))
-    ellipse(screen, grass_green, ((10 - 100) * size_x + x, (440 - 870) * size_y + y, 30 * size_x, 30 * size_y), 3)
-    ellipse(screen, grass_green, ((170 - 100) * size_x + x, (240 - 870) * size_y + y, 30 * size_x, 30 * size_y), 3)
-    ellipse(screen, grass_green, ((275 - 100) * size_x + x, (455 - 870) * size_y + y, 30 * size_x, 30 * size_y), 3)
-    ellipse(screen, grass_green, ((210 - 100) * size_x + x, (640 - 870) * size_y + y, 30 * size_x, 30 * size_y), 3)
+    parametry_ellipsof=[(leaf_green, (20 - 100) * size_x + x, (510 - 870) * size_y + y, 225 * size_x, 175 * size_y, 1), (leaf_green, (15 - 100) * size_x + x, (170 - 870) * size_y + y, 220 * size_x, 240 * size_y,1), (grass_green, (20 - 100) * size_x + x, (510 - 870) * size_y + y, 225 * size_x, 175 * size_y, 3), (grass_green, (15 - 100) * size_x + x, (170 - 870) * size_y + y, 220 * size_x, 240 * size_y, 3), (leaf_green, (-70 - 100) * size_x + x, (340 - 870) * size_y + y, 400 * size_x, 200 * size_y), (grass_green, (-70 - 100) * size_x + x, (340 - 870) * size_y + y, 400 * size_x, 200 * size_y, 3), (fruit_pink, (10 - 100) * size_x + x, (440 - 870) * size_y + y, 30 * size_x, 30 * size_y), (fruit_pink, (170 - 100) * size_x + x, (240 - 870) * size_y + y, 30 * size_x, 30 * size_y, 1), (fruit_pink, (275 - 100) * size_x + x, (455 - 870) * size_y + y, 30 * size_x, 30 * size_y), (fruit_pink, (210 - 100) * size_x + x, (640 - 870) * size_y + y, 30 * size_x, 30 * size_y, 1), (grass_green, (10 - 100) * size_x + x, (440 - 870) * size_y + y, 30 * size_x, 30 * size_y, 3), (grass_green, (170 - 100) * size_x + x, (240 - 870) * size_y + y, 30 * size_x, 30 * size_y, 3), (grass_green, (275 - 100) * size_x + x, (455 - 870) * size_y + y, 30 * size_x, 30 * size_y, 3), (grass_green, (210 - 100) * size_x + x, (640 - 870) * size_y + y, 30 * size_x, 30 * size_y, 3)]
+    for a,b,c,d,e,f in parametry_ellipsof:
+        ellipse(screen, a,b,c,d,e,f)
 
 
 def hair(coord_x, coord_y, size):
-    ellipse(screen, hair2, (coord_x - 45 * size, coord_y + 12 * abs(size), 50 * abs(size), 30 * abs(size)))
-    ellipse(screen, hair1, (coord_x - 65 * size, coord_y, 65 * abs(size), 20 * abs(size)))
-    ellipse(screen, hair1, (coord_x - 95 * size, coord_y + 12 * abs(size), 65 * abs(size), 40 * abs(size)))
-    ellipse(screen, hair2, (coord_x - 75 * size, coord_y + 60 * abs(size), 65 * abs(size), 30 * abs(size)))
-    ellipse(screen, hair3, (coord_x - 110 * size, coord_y + 40 * abs(size), 90 * abs(size), 30 * abs(size)))
-    ellipse(screen, hair4, (coord_x - 125 * size, coord_y + 60 * abs(size), 65 * abs(size), 25 * abs(size)))
-    ellipse(screen, hair4, (coord_x - 72 * size, coord_y + 82 * abs(size), 85 * abs(size), 28 * abs(size)))
-    ellipse(screen, hair3, (coord_x - 115 * size, coord_y + 80 * abs(size), 60 * abs(size), 23 * abs(size)))
-    ellipse(screen, hair3, (coord_x - 100 * size, coord_y + 95 * abs(size), 75 * abs(size), 20 * abs(size)))
-    ellipse(screen, hair5, (coord_x - 133 * size, coord_y + 90 * abs(size), 45 * abs(size), 15 * abs(size)))
-    ellipse(screen, hair5, (coord_x - 133 * size, coord_y + 100 * abs(size), 70 * abs(size), 18 * abs(size)))
-    ellipse(screen, hair3, (coord_x - 95 * size, coord_y + 105 * abs(size), 70 * abs(size), 20 * abs(size)))
-    ellipse(screen, hair5, (coord_x - 65 * size, coord_y + 105 * abs(size), 62 * abs(size), 23 * abs(size)))
-    ellipse(screen, pink, (coord_x - 160 * size, coord_y + 113 * abs(size), 90 * abs(size), 22 * abs(size)))
+    parametry_ellipsov=[(hair2, coord_x - 45 * size, coord_y + 12 * abs(size), 50 * abs(size), 30 * abs(size)), (hair1, coord_x - 65 * size, coord_y, 65 * abs(size), 20 * abs(size)), (hair1, coord_x - 95 * size, coord_y + 12 * abs(size), 65 * abs(size), 40 * abs(size)), (hair2, coord_x - 75 * size, coord_y + 60 * abs(size), 65 * abs(size), 30 * abs(size)), (hair3, coord_x - 110 * size, coord_y + 40 * abs(size), 90 * abs(size), 30 * abs(size)), (hair4, coord_x - 125 * size, coord_y + 60 * abs(size), 65 * abs(size), 25 * abs(size)), (hair4, coord_x - 72 * size, coord_y + 82 * abs(size), 85 * abs(size), 28 * abs(size)),  (hair3, coord_x - 115 * size, coord_y + 80 * abs(size), 60 * abs(size), 23 * abs(size)), (hair3, coord_x - 100 * size, coord_y + 95 * abs(size), 75 * abs(size), 20 * abs(size)), (hair5, coord_x - 133 * size, coord_y + 90 * abs(size), 45 * abs(size), 15 * abs(size)), (hair5, coord_x - 133 * size, coord_y + 100 * abs(size), 70 * abs(size), 18 * abs(size)), (hair3, coord_x - 95 * size, coord_y + 105 * abs(size), 70 * abs(size), 20 * abs(size)), (hair5, coord_x - 65 * size, coord_y + 105 * abs(size), 62 * abs(size), 23 * abs(size)), (pink, coord_x - 160 * size, coord_y + 113 * abs(size), 90 * abs(size), 22 * abs(size))]
+    for a,b,c,d,e in parametry_ellipsov:
+        ellipse(screen, a, (b, c, d, e))
+
 
 
 def unicorn(x, y, size):
@@ -77,25 +56,37 @@ def unicorn(x, y, size):
     ellipse(screen, hair1, ((575 - 645) * size + x, (610 - 655) * size + y, 50 * size, 30 * size))
 
 
-rect(screen, sky_blue, (0, 0, 800, 520))
-rect(screen, grass_green, (0, 520, 800, 1200))
-circle(screen, yellow, (770, 120), 150)
+def sun(x_center, y_center, radius):
+    circle(screen, yellow, (x_center, y_center), radius)
+def grass(y, dlina, shirina):
+    rect(screen, grass_green, (0, y, dlina, shirina))
+def sky(dlina,shirina):
+        rect(screen, sky_blue, dlina, shirina)
+
+#Здесь рисуем всё что нужно
+sky(800, 520)
+grass(520, 800, 1200)
+sun (770, 120, 150)
+
 for i in range(150):
     circle(screen, (255, 255, 155 - i), (770, 120), 150 - i)
-tree(220, 600, 1, 1)
-tree(350, 640, 0.7, 0.3)
-tree(165, 870, 1, 0.7)
-tree(40, 750, 0.7, 0.7)
-tree(70, 1100, 0.7, 0.7)
-unicorn(400, 800, 0.9)
-unicorn(675, 655, 0.5)
-unicorn(550, 450, 0.6)
-unicorn(750, 480, 0.3)
-unicorn(710, 900, 0.6)
+
+
+trees=[(220, 600, 1, 1), (350, 640, 0.7, 0.3), (165, 870, 1, 0.7), (40, 750, 0.7, 0.7), (70, 1100, 0.7, 0.7)]
+unicorns=[(400, 800, 0.9), (675, 655, 0.5), (550, 450, 0.6), (750, 480, 0.3), (710, 900, 0.6)]
+
+for a,b,c,d in trees:
+    tree(a, b, c, d)
+for a, b, c in unicorns:
+    unicorn(a, b, c)
+
+
 
 pygame.display.update()
 clock = pygame.time.Clock()
 finished = False
+
+
 
 while not finished:
     clock.tick(FPS)
