@@ -14,6 +14,7 @@ MAGENTA = (255, 0, 255)
 CYAN = (0, 255, 255)
 BLACK = (0, 0, 0)
 COLORS = [RED, BLUE, YELLOW, GREEN, MAGENTA, CYAN]
+global chislo_ochkov
 chislo_ochkov = 0
 
 def new_ball():
@@ -24,45 +25,45 @@ def new_ball():
     color = COLORS[randint(0, 5)]
     circle(screen, color, (x, y), r)
 
-def click(event):
-    parametry_kruga=[x, y, r]
-
-def proverka_najatia(coordinaty_najatiya, parametry_kruga):
-
-    for a,b in coordinaty_najatiya:
-        cvadrat_rasstoiania=(x-a)**2 + (y-b)**2
-    if cvadrat_rasstoiania>radius**2:
+def proverka_najatia(coordinaty_najatiya, c, d, e):
+    global najal
+    najal = False
+    a=coordinaty_najatiya[0]
+    b=coordinaty_najatiya[1]
+    cvadrat_rasstoiania=(c-a)**2 + (d-b)**2
+    if cvadrat_rasstoiania > e**2:
         print('мимо!')
     else:
-        chislo_ochkov+=1
+        najal = True
+        print('молодец!')
 
 
-
+new_ball()
 pygame.display.update()
+
 clock = pygame.time.Clock()
 finished = False
 
 while not finished:
     clock.tick(FPS)
-    najal=False
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
         elif event.type == pygame.MOUSEBUTTONDOWN:
             print('Click!')
             if event.button == 1:
-                najal=True
-                new_ball()
-                click(new_ball)
-
-                proverka_najatia(parametry_kruga, event.pos)
-                pygame.display.update()
+                proverka_najatia(event.pos, x, y, r)
                 screen.fill(BLACK)
-        if najal=False:
-            new_ball()
+                pygame.display.update()
+                new_ball()
+                pygame.display.update()
+                if najal == True:
+                    chislo_ochkov+=1
+print(chislo_ochkov)
+pygame.quit()
 
 
-print('ваши очки - ', chislo_ochkov)
+
 
 
 
