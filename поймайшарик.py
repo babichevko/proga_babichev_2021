@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import pygame
 from pygame.draw import *
 from random import randint
@@ -64,7 +63,6 @@ while not finished:
 
 
 print('ваши очки - ', chislo_ochkov)
-pygame.quit()
-=======
 
->>>>>>> origin/main
+
+
