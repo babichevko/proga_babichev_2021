@@ -25,13 +25,13 @@ def new_ball():
     color = COLORS[randint(0, 5)]
     circle(screen, color, (x, y), r)
 
-def proverka_najatia(coordinaty_najatiya, c, d, e):
+def proverka_najatia(coordinaty_najatiya, coordinata_kruga_x, coordinata_kruga_y, radius_kruga):
     global najal
     najal = False
-    a=coordinaty_najatiya[0]
-    b=coordinaty_najatiya[1]
-    cvadrat_rasstoiania=(c-a)**2 + (d-b)**2
-    if cvadrat_rasstoiania > e**2:
+    coordinata_najatiya_x = coordinaty_najatiya[0]
+    coordinata_najatiya_y = coordinaty_najatiya[1]
+    cvadrat_rasstoiania = (coordinata_kruga_x - coordinata_najatiya_x) ** 2 + (coordinata_kruga_y - coordinata_najatiya_y) ** 2
+    if cvadrat_rasstoiania > radius_kruga ** 2:
         print('мимо!')
     else:
         najal = True
@@ -50,16 +50,15 @@ while not finished:
         if event.type == pygame.QUIT:
             finished = True
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            print('Click!')
+            print('лови подлеца!')
             if event.button == 1:
                 proverka_najatia(event.pos, x, y, r)
                 screen.fill(BLACK)
-                pygame.display.update()
                 new_ball()
                 pygame.display.update()
                 if najal == True:
                     chislo_ochkov+=1
-print(chislo_ochkov)
+print('ваши очки:', chislo_ochkov)
 pygame.quit()
 
 
