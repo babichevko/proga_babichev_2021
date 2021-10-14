@@ -3,7 +3,7 @@ from pygame.draw import *
 from random import randint
 pygame.init()
 
-FPS = 2
+FPS = 30
 screen = pygame.display.set_mode((1200, 900))
 
 RED = (255, 0, 0)
@@ -18,19 +18,21 @@ COLORS = [RED, BLUE, YELLOW, GREEN, MAGENTA, CYAN]
 global chislo_ochkov
 chislo_ochkov = 0
 balls = []
+v=[]
 
-def new_ball():
-    x = randint(100,700)
-    y = randint(100,500)
-    r = randint(30,50)
+for i in range(randint(6, 12)):
+    x = randint(100, 700)
+    y = randint(100, 500)
+    r = randint(30, 50)
     color = COLORS[randint(0, 5)]
-    dx = randint(5, 20)
-    dy = randint(5, 20)
-    balls.append([color, x, y, r, dx, dy])
+    balls.append([color, x, y, r])
+def new_ball(color, x, y, r):
     circle(screen, color, (x, y), r)
 
-for i in range(randint(3, 10)):
-    new_ball()
+for i in range(len(balls)):
+    vx = randint(-5, 5)
+    vy = randint(-5, 5)
+    v.append([vx, vy])
 
 def proverka_najatia(coordinaty_najatiya, coordinata_kruga_x, coordinata_kruga_y, radius_kruga):
     global najal
@@ -38,11 +40,9 @@ def proverka_najatia(coordinaty_najatiya, coordinata_kruga_x, coordinata_kruga_y
     coordinata_najatiya_x = coordinaty_najatiya[0]
     coordinata_najatiya_y = coordinaty_najatiya[1]
 
-#проверка попадания в шарик по теореме Пифагора
+    #проверка попадания в шарик по теореме Пифагора
     cvadrat_rasstoiania = (coordinata_kruga_x - coordinata_najatiya_x) ** 2 + (coordinata_kruga_y - coordinata_najatiya_y) ** 2
-    if cvadrat_rasstoiania > radius_kruga ** 2:
-        print('мимо!')
-    else:
+    if cvadrat_rasstoiania < radius_kruga ** 2:
         najal = True
         print('молодец!')
 
@@ -59,8 +59,8 @@ while not finished:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             print('лови подлеца!')
             if event.button == 1:
-                for i in balls:
-                    proverka_najatia(event.pos, i[2], i[3], i[4])
+                for i in range(len(balls)):
+                    proverka_najatia(event.pos, balls[i][1], balls[i][2], balls[i][3])
                     if najal == True:
                         balls.pop(i)
                         x = randint(100, 700)
@@ -68,13 +68,16 @@ while not finished:
                         r = randint(30, 50)
                         color = COLORS[randint(0, 5)]
                         balls.append([color, x, y, r])
-                        pygame.display.update()
-                        new_ball()
-                        pygame.display.update()
                         chislo_ochkov+=1
-                else:
+        for i in range(len(balls)):
+            color, x, y, r = balls[i]
+            new_ball(color, x, y, r)
+        for i in range(len(balls)):
+            balls[i][1] += v[i][0]
+            balls[i][2] += v[i][1]
 
-                    pygame.display.update()
+        pygame.display.update()
+        screen.fill(BLACK)
 
 print('ваши очки:', chislo_ochkov)
 pygame.quit()
