@@ -17,34 +17,48 @@ COLORS = [RED, BLUE, YELLOW, GREEN, MAGENTA, CYAN]
 
 global chislo_ochkov
 chislo_ochkov = 0
+
+"Массивы для параметров шаров и их скоростей"
 balls = []
 v=[]
 
-for i in range(randint(6, 12)):
+"Функция создания параметров нового шара"
+def new_ball():
     x = randint(100, 700)
     y = randint(100, 500)
     r = randint(30, 50)
     color = COLORS[randint(0, 5)]
     balls.append([color, x, y, r])
-for i in range(len(balls)):
-    vx = randint(-5, 5)
-    vy = randint(-5, 5)
-    v.append([vx, vy])
 
-def new_ball(color, x, y, r):
+"Функция отрисовки нового шара"
+def draw_ball(color, x, y, r):
     circle(screen, color, (x, y), r)
 
+"Функция присваивания скорости новому шару"
+def ball_speed():
+    vx = randint(-10, 10)
+    vy = randint(-10, 10)
+    v.append([vx, vy])
+
+"Функция проверки попадания игрока по шару"
 def proverka_najatia(coordinaty_najatiya, coordinata_kruga_x, coordinata_kruga_y, radius_kruga):
     global najal
     najal = False
     coordinata_najatiya_x = coordinaty_najatiya[0]
     coordinata_najatiya_y = coordinaty_najatiya[1]
 
-    #проверка попадания в шарик по теореме Пифагора
-    cvadrat_rasstoiania = (coordinata_kruga_x - coordinata_najatiya_x) ** 2 + (coordinata_kruga_y - coordinata_najatiya_y) ** 2
+    # проверка попадания в шарик по теореме Пифагора
+    cvadrat_rasstoiania = (coordinata_kruga_x - coordinata_najatiya_x) ** 2 + (
+                coordinata_kruga_y - coordinata_najatiya_y) ** 2
     if cvadrat_rasstoiania < radius_kruga ** 2:
         najal = True
         print('молодец!')
+
+"Создаём изначально несколько шаров"
+for i in range(5, 10):
+    new_ball()
+for i in range(len(balls)):
+    ball_speed()
 
 pygame.display.update()
 
@@ -61,27 +75,44 @@ while not finished:
             if event.button == 1:
                 for i in range(len(balls)):
                     proverka_najatia(event.pos, balls[i][1], balls[i][2], balls[i][3])
+                    "Если попали по шару - удаляем его, делаем новый, счёт увеличивается"
                     if najal == True:
-                        x = randint(100, 700)
-                        y = randint(100, 500)
-                        r = randint(30, 50)
-                        color = COLORS[randint(0, 5)]
-                        balls[i] = [color, x, y, r]
-                        vx = randint(-5, 5)
-                        vy = randint(-5, 5)
-                        v[i] = [vx, vy]
+                        new_ball()
+                        #Заменяем старый шар на новый
+                        balls[i] = balls[len(balls)-1]
+                        balls.pop(len(balls)-1)
+                        #Заменяем скорость старого шара на скорость нового
+                        ball_speed()
+                        v[i] = v[len(v) - 1]
+                        v.pop(len(v) - 1)
                         chislo_ochkov+=1
+    #Рисуем шары
     for i in range(len(balls)):
             color, x, y, r = balls[i]
-            new_ball(color, x, y, r)
+            draw_ball(color, x, y, r)
+
+    "Изменение положения шаров"
     for i in range(len(balls)):
         balls[i][1] += v[i][0]
         balls[i][2] += v[i][1]
 
+        "Отражение шаров от стенок"
         if balls[i][1] - 2 * balls[i][3] < 0 or balls[i][1] + 2 * balls[i][3] > 1200:
-            v[i][0] = -v[i][0]
+            k = randint(5, 17)
+            v[i][0] = -k * v[i][0] / 10
+            "Ограничим скорость шариков"
+            if v[i][0] < -30:
+                v[i][0] = -5
+            if v[i][0] > 30:
+                v[i][0] = 5
         if balls[i][2] - 2 * balls[i][3] < 0 or balls[i][2] + 2 * balls[i][3] > 900:
-            v[i][1] = -v[i][1]
+            t = randint(5, 17)
+            v[i][1] = -t * v[i][1] / 10
+            "Ограничим скорость шариков"
+            if v[i][1] < -30:
+                v[i][1] = -5
+            if v[i][1] > 30:
+                v[i][1] = 5
 
     pygame.display.update()
 
