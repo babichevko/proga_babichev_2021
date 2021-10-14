@@ -55,7 +55,6 @@ def proverka_najatia(coordinaty_najatiya, coordinata_kruga_x, coordinata_kruga_y
                 coordinata_kruga_y - coordinata_najatiya_y) ** 2
     if cvadrat_rasstoiania < radius_kruga ** 2:
         najal = True
-        print('молодец!')
 
 #Функция вывода счёта
 def schet():
@@ -71,7 +70,7 @@ def zavershenie_igry():
     cenok2 = pygame.font.Font(None, 200)
     textsurface2 = cenok2.render('Ваши очки:', False, GREEN)
     screen.blit(textsurface2, (200, 450))
-    cenok3= pygame.font.Font(None, 200)
+    cenok3 = pygame.font.Font(None, 200)
     textsurface3 = cenok3.render(str(chislo_ochkov), False, BLUE)
     screen.blit(textsurface3, (500, 600))
     pygame.display.update()
@@ -94,7 +93,6 @@ while not finished:
         if event.type == pygame.QUIT:
             finished = True
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            print('лови подлеца!')
             if event.button == 1:
                 for i in range(len(balls)):
                     proverka_najatia(event.pos, balls[i][1], balls[i][2], balls[i][3])
@@ -151,16 +149,12 @@ while not finished:
             if v[i][1] > 30:
                 v[i][1] = -5
 
-
-
     pygame.display.update()
-
     screen.fill(BLACK)
 
 for i in range(150):
     zavershenie_igry()
 
-print('ваши очки:', chislo_ochkov)
 pygame.quit()
 
 
