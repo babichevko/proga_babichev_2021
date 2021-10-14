@@ -17,6 +17,9 @@ COLORS = [RED, BLUE, YELLOW, GREEN, MAGENTA, CYAN]
 
 global chislo_ochkov
 chislo_ochkov = 0
+myfont = pygame.font.SysFont('Comic Sans MS', 30)
+textsurface = myfont.render('Ваши очки:', False, (0, 0, 0))
+
 
 "Массивы для параметров шаров и их скоростей"
 balls = []
@@ -54,6 +57,25 @@ def proverka_najatia(coordinaty_najatiya, coordinata_kruga_x, coordinata_kruga_y
         najal = True
         print('молодец!')
 
+#Функция вывода счёта
+def schet():
+    schetchik = pygame.font.Font(None, 100)
+    textsurface = schetchik.render(str(chislo_ochkov), False, RED)
+    screen.blit(textsurface,(100, 100))
+
+def zavershenie_igry():
+    clock.tick(FPS)
+    cenok = pygame.font.Font(None, 200)
+    textsurface = cenok.render('Game Over', False, RED)
+    screen.blit(textsurface, (200, 300))
+    cenok2 = pygame.font.Font(None, 200)
+    textsurface2 = cenok2.render('Ваши очки:', False, GREEN)
+    screen.blit(textsurface2, (200, 450))
+    cenok3= pygame.font.Font(None, 200)
+    textsurface3 = cenok3.render(str(chislo_ochkov), False, BLUE)
+    screen.blit(textsurface3, (500, 600))
+    pygame.display.update()
+
 "Создаём изначально несколько шаров"
 for i in range(5, 10):
     new_ball()
@@ -66,6 +88,7 @@ clock = pygame.time.Clock()
 finished = False
 
 while not finished:
+    g = 0
     clock.tick(FPS)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -85,7 +108,20 @@ while not finished:
                         ball_speed()
                         v[i] = v[len(v) - 1]
                         v.pop(len(v) - 1)
-                        chislo_ochkov+=1
+                        chislo_ochkov += 1
+                        g = 1
+            #Если не попали - число шаров увеличивается
+            if g != 1:
+                new_ball()
+                ball_speed()
+                g=0
+
+    #И когда шаров слишком много - игра заканчивается
+    if len(balls) > 20:
+        finished = True
+
+    schet()
+
     #Рисуем шары
     for i in range(len(balls)):
             color, x, y, r = balls[i]
@@ -97,26 +133,32 @@ while not finished:
         balls[i][2] += v[i][1]
 
         "Отражение шаров от стенок"
-        if balls[i][1] - 2 * balls[i][3] < 0 or balls[i][1] + 2 * balls[i][3] > 1200:
-            k = randint(5, 17)
+        if balls[i][1] - 2 * balls[i][3] < 0 and v[i][0] < 0 or balls[i][1] + 2 * balls[i][3] > 1200 and v[i][0] > 0:
+            k = randint(5, 18)
             v[i][0] = -k * v[i][0] / 10
             "Ограничим скорость шариков"
             if v[i][0] < -30:
                 v[i][0] = -5
             if v[i][0] > 30:
                 v[i][0] = 5
-        if balls[i][2] - 2 * balls[i][3] < 0 or balls[i][2] + 2 * balls[i][3] > 900:
-            t = randint(5, 17)
+        if balls[i][2] - 2 * balls[i][3] < 0 and v[i][1] < 0 or balls[i][2] + 2 * balls[i][3] > 1200 and v[i][1] > 0:
+            t = randint(5, 18)
             v[i][1] = -t * v[i][1] / 10
+
             "Ограничим скорость шариков"
             if v[i][1] < -30:
-                v[i][1] = -5
-            if v[i][1] > 30:
                 v[i][1] = 5
+            if v[i][1] > 30:
+                v[i][1] = -5
+
+
 
     pygame.display.update()
 
     screen.fill(BLACK)
+
+for i in range(150):
+    zavershenie_igry()
 
 print('ваши очки:', chislo_ochkov)
 pygame.quit()
