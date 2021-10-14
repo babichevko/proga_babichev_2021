@@ -26,13 +26,13 @@ for i in range(randint(6, 12)):
     r = randint(30, 50)
     color = COLORS[randint(0, 5)]
     balls.append([color, x, y, r])
-def new_ball(color, x, y, r):
-    circle(screen, color, (x, y), r)
-
 for i in range(len(balls)):
     vx = randint(-5, 5)
     vy = randint(-5, 5)
     v.append([vx, vy])
+
+def new_ball(color, x, y, r):
+    circle(screen, color, (x, y), r)
 
 def proverka_najatia(coordinaty_najatiya, coordinata_kruga_x, coordinata_kruga_y, radius_kruga):
     global najal
@@ -62,22 +62,30 @@ while not finished:
                 for i in range(len(balls)):
                     proverka_najatia(event.pos, balls[i][1], balls[i][2], balls[i][3])
                     if najal == True:
-                        balls.pop(i)
                         x = randint(100, 700)
                         y = randint(100, 500)
                         r = randint(30, 50)
                         color = COLORS[randint(0, 5)]
-                        balls.append([color, x, y, r])
+                        balls[i] = [color, x, y, r]
+                        vx = randint(-5, 5)
+                        vy = randint(-5, 5)
+                        v[i] = [vx, vy]
                         chislo_ochkov+=1
-        for i in range(len(balls)):
+    for i in range(len(balls)):
             color, x, y, r = balls[i]
             new_ball(color, x, y, r)
-        for i in range(len(balls)):
-            balls[i][1] += v[i][0]
-            balls[i][2] += v[i][1]
+    for i in range(len(balls)):
+        balls[i][1] += v[i][0]
+        balls[i][2] += v[i][1]
 
-        pygame.display.update()
-        screen.fill(BLACK)
+        if balls[i][1] - 2 * balls[i][3] < 0 or balls[i][1] + 2 * balls[i][3] > 1200:
+            v[i][0] = -v[i][0]
+        if balls[i][2] - 2 * balls[i][3] < 0 or balls[i][2] + 2 * balls[i][3] > 900:
+            v[i][1] = -v[i][1]
+
+    pygame.display.update()
+
+    screen.fill(BLACK)
 
 print('ваши очки:', chislo_ochkov)
 pygame.quit()
