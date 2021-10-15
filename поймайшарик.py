@@ -18,12 +18,12 @@ COLORS = [RED, BLUE, YELLOW, GREEN, MAGENTA, CYAN]
 global chislo_ochkov
 chislo_ochkov = 0
 
-
-"Массивы для параметров шаров и их скоростей"
+"Массивы для параметров шаров, квадратов и их скоростей"
 balls = []
 polygons=[]
 v=[]
 v2=[]
+a2=[]
 
 "Функция создания параметров нового шара"
 def new_ball():
@@ -47,7 +47,7 @@ def ball_speed():
 def new_polygon():
     x2 = randint(100, 700)
     y2 = randint(100, 500)
-    r2 = randint(30, 70)
+    r2 = randint(50, 80)
     width = randint(3, 10)
     color2 = COLORS[randint(0, 5)]
     polygons. append([color2, x2, y2, r2, width])
@@ -57,6 +57,12 @@ def polygon_speed():
     vx2 = randint(-10, 10)
     vy2 = randint(-10, 10)
     v2.append([vx2, vy2])
+
+"Функция присваивания ускорения новому квадрату"
+def polygon_acceleration():
+    ax2 = randint(-1, 1)
+    ay2 = randint(-1, 1)
+    a2.append([ax2, ay2])
 
 "Функция отрисовки нового шара"
 def draw_polygon(color, x2, y2, r2, width):
@@ -117,6 +123,7 @@ def nachalo_igry():
         new_polygon()
     for i in range(len(polygons)):
         polygon_speed()
+        polygon_acceleration()
 
 pygame.display.update()
 
@@ -126,17 +133,23 @@ finished = False
 nachalo_igry()
 
 while not finished:
+
     g = 0
     h = 0
+
     clock.tick(FPS)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
         elif event.type == pygame.MOUSEBUTTONDOWN:
+
             if event.button == 1:
+
                 for i in range(len(balls)):
                     proverka_najatia(event.pos, balls[i][1], balls[i][2], balls[i][3])
+
                     "Если попали по шару - удаляем его, делаем новый, счёт увеличивается"
+
                     if najal is True:
                         new_ball()
                         #Заменяем старый шар на новый
@@ -146,21 +159,28 @@ while not finished:
                         ball_speed()
                         v[i] = v[len(v) - 1]
                         v.pop(len(v) - 1)
-                        chislo_ochkov += 100
+                        chislo_ochkov += 50
                         g = 1
+
                 for i in range(len(polygons)):
                     proverka_najatia2(event.pos, polygons[i][1], polygons[i][2], polygons[i][3])
+
                     "Если попали по квадрату - удаляем его, делаем новый, счёт увеличивается"
+
                     if najal2 is True:
                         new_polygon()
                         # Заменяем старый квадрат на новый
                         polygons[i] = polygons[len(polygons) - 1]
                         polygons.pop(len(polygons) - 1)
-                        # Заменяем скорость старого шара на скорость нового
+                        # Заменяем скорость старого квадрата на скорость нового
                         polygon_speed()
                         v2[i] = v2[len(v2) - 1]
                         v2.pop(len(v2) - 1)
-                        chislo_ochkov += 200
+                        # Заменяем ускорения старого квадрата на ускорение нового
+                        polygon_acceleration()
+                        a2[i] = a2[len(v2) - 1]
+                        a2.pop(len(a2) - 1)
+                        chislo_ochkov += 15
                         h = 1
             #Если не попали - число шаров и квадратов увеличивается
             if g != 1:
@@ -170,14 +190,17 @@ while not finished:
             if h != 1 and g != 1:
                 new_polygon()
                 polygon_speed()
+                polygon_acceleration()
 
 
-    #И когда шаров и квадратов слишком много - игра заканчивается
+    #И если шаров и квадратов слишком много - игра заканчивается
     if len(balls) + len(polygons) > 40:
         finished = True
 
     #Если ничего не делать, число очков постепенно уменьшается
     chislo_ochkov -= 1
+
+    #Выводим счёт на экран
     schet()
 
     #Рисуем шары и квадраты
@@ -194,6 +217,8 @@ while not finished:
         balls[i][1] += v[i][0]
         balls[i][2] += v[i][1]
     for i in range(len(polygons)):
+        v2[i][0] += a2[i][0]
+        v2[i][1] += a2[i][1]
         polygons[i][1] += v2[i][0]
         polygons[i][2] += v2[i][1]
 
@@ -223,21 +248,22 @@ while not finished:
         if polygons[i][1] < 0 and v2[i][0] < 0 or polygons[i][1] + polygons[i][3] > 1200 and v2[i][0] > 0:
             k = randint(5, 18)
             v2[i][0] = -k * v[i][0] / 10
+            a2[i][0] = randint(-1, 1)
             "Ограничим скорость квадратов"
-            if v2[i][0] < -50:
+            if v2[i][0] < -30:
                 v2[i][0] = 10
-            if v2[i][0] > 50:
+            if v2[i][0] > 30:
                 v2[i][0] = -10
 
         if polygons[i][2] < 0 and v2[i][1] < 0 or polygons[i][2] + polygons[i][3] > 1200 and v2[i][1] > 0:
             t = randint(5, 18)
             v2[i][1] = -t * v2[i][1] / 10
-
+            a2[i][1] = randint(-1, 1)
             "Ограничим скорость квадратов"
-            if v2[i][1] < -50:
-                v2[i][1] = 10
-            if v2[i][1] > 50:
-                v2[i][1] = -10
+            if v2[i][1] < -30:
+                v2[i][1] = 5
+            if v2[i][1] > 30:
+                v2[i][1] = -5
 
     pygame.display.update()
 
