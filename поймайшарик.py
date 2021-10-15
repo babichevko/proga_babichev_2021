@@ -180,7 +180,7 @@ while not finished:
                         polygon_acceleration()
                         a2[i] = a2[len(v2) - 1]
                         a2.pop(len(a2) - 1)
-                        chislo_ochkov += 15
+                        chislo_ochkov += 150
                         h = 1
             #Если не попали - число шаров и квадратов увеличивается
             if g != 1:
@@ -250,19 +250,19 @@ while not finished:
             v2[i][0] = -k * v[i][0] / 10
             a2[i][0] = randint(-1, 1)
             "Ограничим скорость квадратов"
-            if v2[i][0] < -30:
-                v2[i][0] = 10
-            if v2[i][0] > 30:
-                v2[i][0] = -10
+            if v2[i][0] < -20:
+                v2[i][0] = 5
+            if v2[i][0] > 20:
+                v2[i][0] = -5
 
         if polygons[i][2] < 0 and v2[i][1] < 0 or polygons[i][2] + polygons[i][3] > 1200 and v2[i][1] > 0:
             t = randint(5, 18)
             v2[i][1] = -t * v2[i][1] / 10
             a2[i][1] = randint(-1, 1)
             "Ограничим скорость квадратов"
-            if v2[i][1] < -30:
+            if v2[i][1] < -20:
                 v2[i][1] = 5
-            if v2[i][1] > 30:
+            if v2[i][1] > 20:
                 v2[i][1] = -5
 
     pygame.display.update()
