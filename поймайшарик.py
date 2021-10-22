@@ -103,12 +103,15 @@ def schet():
 def zavershenie_igry():
     clock.tick(FPS)
     cenok = pygame.font.Font(None, 200)
+
     textsurface = cenok.render('Game Over', False, RED)
     screen.blit(textsurface, (200, 300))
     cenok2 = pygame.font.Font(None, 200)
+
     textsurface2 = cenok2.render('Ваши очки:', False, GREEN)
     screen.blit(textsurface2, (200, 450))
     cenok3 = pygame.font.Font(None, 200)
+
     textsurface3 = cenok3.render(str(chislo_ochkov), False, BLUE)
     screen.blit(textsurface3, (500, 600))
     pygame.display.update()
